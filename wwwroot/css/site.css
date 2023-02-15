@@ -1,0 +1,59 @@
+@font-face {
+    font-family: Actionj;
+    src: url("../fonts/actionj.ttf");
+}
+
+.nav-font{
+    font-family: Actionj;
+}
+
+.logo > span{
+    text-decoration: none;
+    color: #c7e8ff;
+    transition: 1s;
+    margin-left:5px;
+}
+
+.logo > span:hover{
+    transition: 1s;
+    color:  #22a3ff;
+}
+
+.lobby-container{
+    gap: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.lobby{
+    background-color: #363636;
+    width: 350px;
+    height: 250px;
+    text-align: center;
+    align-items: center;
+    padding-top: 15px;
+    transition: 1s;
+}
+.lobby:hover{
+    color: #22a3ff;
+    transition: 1s;
+}
+
+.add-lobby-icon{
+    font-size: 100px;
+}
+.wait-icon{
+    font-size: 60px;
+}
+.add-lobby-container{
+    width: 350px;
+    height: 250px;
+    text-decoration: none;
+    transition: 1s;
+    background-color: #363636;
+}
+
+.add-lobby-container:hover{
+    transition: 1s;
+    color: aquamarine;
+}

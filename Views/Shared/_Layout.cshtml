@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html lang="en" class="bg-dark">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Checkers</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Checkers.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+</head>
+<body class="bg-dark d-flex flex-column min-vh-100">
+    <header>
+        <nav class="navbar navbar-toggleable-sm mb-3">
+            <a href="/" class="logo display-2 nav-font text-decoration-none"><span>Checkers</span></a>
+        </nav>
+    </header>
+
+    <main class="text-light">
+        @RenderBody()
+    </main>
+
+
+    <footer class="text-muted mt-auto p-t-4">
+        <div class="container">
+            <h6>2022-2023</h6>
+        </div>
+    </footer>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
