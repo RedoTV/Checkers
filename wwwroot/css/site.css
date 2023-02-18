@@ -25,6 +25,17 @@
     justify-content: center;
 }
 
+h1 > .bi-person-circle{
+    margin-right: 10px;
+    color: white;
+    transition: 1s;
+}
+
+h1 > .bi-person-circle:hover{
+    color: #22a3ff;
+    transition:1s;
+}
+
 .lobby{
     background-color: #363636;
     width: 350px;
@@ -56,4 +67,9 @@
 .add-lobby-container:hover{
     transition: 1s;
     color: aquamarine;
+}
+
+.submit-button{
+    margin-top: 30px;
+    margin-bottom: 5px;
 }

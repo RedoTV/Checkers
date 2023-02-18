@@ -20,6 +20,7 @@ public class HomeController : Controller
     {
         return View(LobbyService.GetLobbies());
     }
+    
     [HttpPost]
     public IActionResult AddLobby(string name,int firstPlayerId){
 
