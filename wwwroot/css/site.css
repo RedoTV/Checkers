@@ -45,6 +45,7 @@ h1 > .bi-person-circle:hover{
     padding-top: 15px;
     transition: 1s;
 }
+
 .lobby:hover{
     color: #22a3ff;
     transition: 1s;
