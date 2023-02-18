@@ -31,6 +31,10 @@ namespace Checkers.Controllers
             else return View(model);
         }
 
+        [HttpGet]
+        public IActionResult SignIn() => View();
+     
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

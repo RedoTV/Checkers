@@ -71,6 +71,22 @@ h1 > .bi-person-circle:hover{
 }
 
 .submit-button{
-    margin-top: 30px;
+    margin-top: 20px;
     margin-bottom: 5px;
+    background-color: rgb(116, 199, 255);
+}
+
+.register-btn{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15px;
+    color: rgb(45, 30, 255);
+    transition: 1s;
+    background-color: white;
+}
+
+.register-btn:hover{
+    transition: 1s;
+    color: rgba(45, 30, 255, 0.614);
+    background-color: rgba(255, 255, 255, 0.685);
 }
