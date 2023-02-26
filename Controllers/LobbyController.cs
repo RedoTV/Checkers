@@ -1,9 +1,11 @@
+using Checkers.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Checkers.Controllers
 {
-    [Authorize]
+    [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
     public class LobbyController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -13,8 +15,19 @@ namespace Checkers.Controllers
             _logger = logger;
         }
 
-        [HttpPost]
+        [HttpGet]
         public IActionResult AddLobby()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult AddLobby(Lobby lobby)
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult LobbyPage()
         {
             return View();
         }
