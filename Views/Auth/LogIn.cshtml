@@ -1,15 +1,15 @@
 @{
-    ViewData["Title"] = "SignIn";
+    ViewData["Title"] = "Войти";
 }
 
 <div class="d-flex justify-content-center">
-  <form method="post" asp-controller="Auth" asp-action="SignIn" class="d-flex flex-column text-center border rounded form-outline w-50 bg-secondary p-3">
+  <form method="post" asp-controller="Auth" asp-action="LogIn" class="d-flex container flex-column text-center border rounded form-outline bg-secondary p-3 sign-in">
     <div>
         <h1>Войти</h1>
         <label>Логин</label>
-        <input type="text" class="form-control" placeholder="Введите логин"/>
+        <input type="text" class="form-control" name="Name" placeholder="Введите логин"/>
         <label class="form-label">Пароль</label>
-        <input type="text" class="form-control" placeholder="Введите пароль"/>
+        <input type="password" class="form-control" name="Password" placeholder="Введите пароль"/>
         <input type="submit" value="Войти" class="submit-button border rounded w-75">
     </div>
     <a class="text-decoration-none register-btn border rounded w-75 align-center " href="/auth/register">Регистрация</a>

@@ -1,7 +1,10 @@
 using Checkers.Models;
 using Checkers.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Checkers.Controllers
 {
@@ -25,16 +28,28 @@ namespace Checkers.Controllers
         {
             if(ModelState.IsValid)
             { 
-                await LoginService.Registry(HttpContextAccessor.HttpContext!, model.Name, model.Password);
+                await LoginService.Registry(HttpContextAccessor.HttpContext!, model);
                 return Redirect("/");
             }
             else return View(model);
         }
 
         [HttpGet]
-        public IActionResult SignIn() => View();
-     
+        public IActionResult LogIn() => View();
 
+        [HttpPost]
+        public async Task<IActionResult> LogIn(SignInViewModel model)
+        {
+            await LoginService.LogIn(HttpContextAccessor.HttpContext!, model);
+            return Redirect("/");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> LogOut()
+        {
+            await HttpContextAccessor.HttpContext!.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return Redirect("/");
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

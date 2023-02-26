@@ -3,6 +3,7 @@ namespace Checkers.Models
 {
     public class Lobby
     {
+        [Required]
         public int Id { get; set; }
         [MaxLength(10)]
         public string Name { get; set; } = null!;

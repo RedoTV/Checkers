@@ -8,30 +8,42 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Checkers.Services
 {
-    
     public class LoginService : ILoginService
     {
-        //TODO ХРЕНАЧЬ ПОКА НЕ СДЕЛАЕШЬ
         CheckersDbContext CheckersDbContext;
         public LoginService(CheckersDbContext checkersDbContext)
         {
             CheckersDbContext = checkersDbContext;
         }
-        public async Task Registry(HttpContext context, string name, string password){
-            string hashedPassword = ComputeStringToSha256Hash(password);
+        public async Task Registry(HttpContext context, RegisterViewModel model)
+        {
+            string hashedPassword = ComputeStringToSha256Hash(model.Password);
             User createdUser = new User
             {
-                Name = name,
+                Name = model.Name,
                 Password = hashedPassword
             }; 
-            if(name != null && hashedPassword != null)
+            if(model.Name != null && hashedPassword != null)
             {
                 await CheckersDbContext.Users.AddAsync(createdUser);
+                await CheckersDbContext.SaveChangesAsync();
                 var claims = new List<Claim> { new Claim(ClaimTypes.Name, createdUser.Name) };
                 ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "Cookies");
                 await context.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
             }
             else return;
+        }
+
+        public async Task LogIn(HttpContext context, SignInViewModel model)
+        {
+            string hashedPassword = ComputeStringToSha256Hash(model.Password);
+            User usr = CheckersDbContext.Users.Where(u => u.Name == model.Name && u.Password == hashedPassword).First();
+            if(usr != null)
+            {
+                var claims = new List<Claim> { new Claim(ClaimTypes.Name, usr.Name) };
+                ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims,"Cookies");
+                await context.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
+            }
         }
 
         static string ComputeStringToSha256Hash(string plainText)

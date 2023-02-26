@@ -2,9 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Checkers.Models;
 using Checkers.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Checkers.Controllers;
 
+[Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;

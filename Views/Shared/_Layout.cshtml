@@ -12,7 +12,20 @@
     <header>
         <nav class="navbar navbar-toggleable-sm mb-3">
             <a href="/" class="logo display-2 nav-font text-decoration-none"><span>Checkers</span></a>
-            <a href="/Auth/Signin"><h1><i class="bi bi-person-circle"></i></h1></a>
+            @if (User.Identity!.IsAuthenticated == true)
+            {
+                <a href="/Auth/UserInfo">
+                    <h1 class="bg-dark">
+                        <i class="bi bi-person-circle">
+                            @User.Identity.Name
+                        </i>
+                    </h1>
+                </a>
+            }
+            else{
+                <a href="/Auth/logIn"><h1 class="bg-dark"><i class="bi bi-person-circle">Гость</i></h1></a>
+            }
+            <a href="/auth/logout" class="sign-out-btn">Выйти</a>
         </nav>
     </header>
 

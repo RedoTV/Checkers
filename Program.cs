@@ -8,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
+                    options.AccessDeniedPath = "/auth/login";
                     options.LoginPath = "/auth/login";
                     options.LogoutPath = "/auth/logout";
                 });
@@ -16,6 +17,7 @@ builder.Services.AddHttpContextAccessor();
 
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddSignalR();
 	
 //Connect Services
 builder.Services.AddTransient<ILobbyService,LobbyService>();
