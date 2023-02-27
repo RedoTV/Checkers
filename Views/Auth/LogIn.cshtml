@@ -6,12 +6,16 @@
   <form method="post" asp-controller="Auth" asp-action="LogIn" class="d-flex container flex-column text-center border rounded form-outline bg-secondary p-3 sign-in">
     <div>
         <h1>Войти</h1>
-        <label>Логин</label>
-        <input type="text" class="form-control" name="Name" placeholder="Введите логин"/>
-        <label class="form-label">Пароль</label>
-        <input type="password" class="form-control" name="Password" placeholder="Введите пароль"/>
-        <input type="submit" value="Войти" class="submit-button border rounded w-75">
+        <div class="form-group">
+          <h6>Логин</h6>
+          <input type="text" class="form-control" name="Name" placeholder="Введите логин"/>
+        </div>
+        <div class="form-group">
+          <h6>Пароль</h6>
+          <input type="password" class="form-control" name="Password" placeholder="Введите пароль"/>
+        </div>
+        <input type="submit" value="Войти" class="submit-button btn btn-success border rounded w-75">
     </div>
-    <a class="text-decoration-none register-btn border rounded w-75 align-center " href="/auth/register">Регистрация</a>
+    <a class="text-decoration-none btn btn-primary register-btn border rounded w-75 align-center " href="/auth/register">Регистрация</a>
   </form>
 </div>

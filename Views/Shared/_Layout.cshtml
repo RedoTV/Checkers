@@ -14,7 +14,7 @@
             <a href="/" class="logo display-2 nav-font text-decoration-none"><span>Checkers</span></a>
             @if (User.Identity!.IsAuthenticated == true)
             {
-                <a href="/Auth/UserInfo">
+                <a href="/Auth/UserInfo" class="text-decoration-none">
                     <h1 class="bg-dark">
                         <i class="bi bi-person-circle">
                             @User.Identity.Name
@@ -23,9 +23,8 @@
                 </a>
             }
             else{
-                <a href="/Auth/logIn"><h1 class="bg-dark"><i class="bi bi-person-circle">Гость</i></h1></a>
+                <a href="/Auth/logIn" class="text-decoration-none"><h1 class="bg-dark"><i class="bi bi-person-circle"> Гость</i></h1></a>
             }
-            <a href="/auth/logout" class="sign-out-btn">Выйти</a>
         </nav>
     </header>
 

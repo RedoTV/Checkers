@@ -18,10 +18,10 @@ namespace Checkers.Services
             List<Lobby> lobbies = CheckersDbContext.Lobbies.ToList();
             return lobbies;
         }
-        public Lobby AddLobby(string name, int firstPlayerId){
+        public Lobby AddLobby(string name,string firstPlayerName){
             Lobby newLobby = new Lobby(){
                 Name = name,
-                FirstPlayerId = firstPlayerId
+                FirstPlayerName = firstPlayerName
             }; 
             CheckersDbContext.Lobbies.Add(newLobby);
             CheckersDbContext.SaveChanges();

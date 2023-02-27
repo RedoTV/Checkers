@@ -7,8 +7,8 @@ namespace Checkers.Models
         public int Id { get; set; }
         [MaxLength(10)]
         public string Name { get; set; } = null!;
-        public int FirstPlayerId { get; set; }
-        public int? SecondPlayerId { get; set; }
+        public string FirstPlayerName { get; set; } = null!;
+        public string? SecondPlayerId { get; set; }
         public bool Started { get; set; } = false;
     }
 }
