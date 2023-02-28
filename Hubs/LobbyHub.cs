@@ -3,11 +3,15 @@ using Microsoft.AspNetCore.SignalR;
 
 namespace Checkers.Hubs
 {
+    
     public class LobbyHub : Hub
     {
-        [Authorize]
         public async Task SynchronizeLobby(){
-
+            
+        }
+        public async Task Send(string message)
+        {
+            await Clients.All.SendAsync("Receive", message);
         }
     }
 }

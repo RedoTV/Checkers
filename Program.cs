@@ -1,4 +1,5 @@
 using Checkers.Data;
+using Checkers.Hubs;
 using Checkers.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
@@ -46,5 +47,7 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapDefaultControllerRoute();
+
+app.MapHub<LobbyHub>("/lobbyhub"); 
 
 app.Run();

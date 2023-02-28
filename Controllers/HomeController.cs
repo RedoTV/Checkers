@@ -27,7 +27,7 @@ public class HomeController : Controller
     [HttpPost]
     public IActionResult AddLobby(string name){
 
-        Lobby addedLobby = LobbyService.AddLobby(name , User.Identity.Name!);
+        Lobby addedLobby = LobbyService.AddLobby(name , User.Identity!.Name!);
         return Ok(addedLobby);
     }
 
