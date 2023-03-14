@@ -2,9 +2,7 @@
     ViewData["Title"] = "Лобби";
 }
 
-<table class="board" id="board">
-    
-</table>
+<table class="board" id="board"></table>
 
 
 <div class="chatroom" id="chatroom">
@@ -54,6 +52,8 @@
         document.getElementById("chatroom").appendChild(messageElement);
     });
 
+    hubConnection.on
+
     hubConnection.start()
         .then(function () {
             document.getElementById("sendBtn").disabled = false;
@@ -61,4 +61,6 @@
         .catch(function (err) {
             return console.error(err.toString());
         });
+
+     
 </script>

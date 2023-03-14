@@ -23,13 +23,6 @@ public class HomeController : Controller
     {
         return View(LobbyService.GetLobbies());
     }
-    
-    [HttpPost]
-    public IActionResult AddLobby(string name){
-
-        Lobby addedLobby = LobbyService.AddLobby(name , User.Identity!.Name!);
-        return Ok(addedLobby);
-    }
 
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

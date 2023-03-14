@@ -7,26 +7,34 @@ namespace Checkers.Services
 {
     public class LobbyService : ILobbyService
     {
-        IWebHostEnvironment Env;
-        CheckersDbContext CheckersDbContext;
+        private readonly IWebHostEnvironment Env;
+        private readonly CheckersDbContext CheckersDbContext;
         public LobbyService(IWebHostEnvironment env, CheckersDbContext checkersDbContext)
         {
             Env = env;
             CheckersDbContext = checkersDbContext;
         }
+
         public IEnumerable<Lobby> GetLobbies(){
             List<Lobby> lobbies = CheckersDbContext.Lobbies.ToList();
             return lobbies;
         }
-        public Lobby AddLobby(string name,string firstPlayerName){
+
+        public Lobby AddLobby(string name, string password, HttpContext context){
+            int findedLobbyCount = CheckersDbContext.Lobbies.Where(l => l.Name == name).Count();
+            if(findedLobbyCount > 0) 
+                throw new Exception("lobby with this name already exist");
+
             Lobby newLobby = new Lobby(){
                 Name = name,
-                FirstPlayerName = firstPlayerName
+                FirstPlayerName = context.User.Identity!.Name!,
+                Password = password
             }; 
             CheckersDbContext.Lobbies.Add(newLobby);
             CheckersDbContext.SaveChanges();
             return newLobby;
         }
+
         public string DeleteLobby(int id){
             List<Lobby> lobbies = CheckersDbContext.Lobbies.ToList();
             Lobby? deletedLobby = lobbies.Find( lobby => lobby.Id == id);

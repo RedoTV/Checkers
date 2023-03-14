@@ -10,5 +10,6 @@ namespace Checkers.Models
         public string FirstPlayerName { get; set; } = null!;
         public string? SecondPlayerId { get; set; }
         public bool Started { get; set; } = false;
+        public string? Password { get; set; }
     }
 }

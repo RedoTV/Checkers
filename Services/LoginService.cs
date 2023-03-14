@@ -17,6 +17,11 @@ namespace Checkers.Services
         }
         public async Task Registry(HttpContext context, RegisterViewModel model)
         {
+            var findedUser = CheckersDbContext.Users.Where(u => u.Name == model.Name).First();
+            if(findedUser != null)
+                throw new Exception("User with this name already exist");
+
+
             string hashedPassword = ComputeStringToSha256Hash(model.Password);
             User createdUser = new User
             {
