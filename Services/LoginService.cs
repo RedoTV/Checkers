@@ -10,48 +10,61 @@ namespace Checkers.Services
 {
     public class LoginService : ILoginService
     {
-        CheckersDbContext CheckersDbContext;
+        private readonly CheckersDbContext CheckersDbContext;
         public LoginService(CheckersDbContext checkersDbContext)
         {
             CheckersDbContext = checkersDbContext;
         }
         public async Task Registry(HttpContext context, RegisterViewModel model)
         {
-            var findedUser = CheckersDbContext.Users.Where(u => u.Name == model.Name).First();
-            if(findedUser != null)
-                throw new Exception("User with this name already exist");
+            if(string.IsNullOrEmpty(model.Name) || string.IsNullOrEmpty(model.Password))
+            {
+                throw new Exception("Incorrect input login or password");
+            }
 
-
+            var findedUser = CheckersDbContext.Users.Where(u => u.Name == model.Name).Count();
+            if(findedUser > 0)
+            {
+                throw new Exception("User with this login already exist");
+            }
+            
             string hashedPassword = ComputeStringToSha256Hash(model.Password);
             User createdUser = new User
             {
                 Name = model.Name,
                 Password = hashedPassword
             }; 
-            if(model.Name != null && hashedPassword != null)
-            {
-                await CheckersDbContext.Users.AddAsync(createdUser);
-                await CheckersDbContext.SaveChangesAsync();
-                var claims = new List<Claim> { new Claim(ClaimTypes.Name, createdUser.Name) };
-                ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "Cookies");
-                await context.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
-            }
-            else return;
+            
+            //adding user to database
+            await CheckersDbContext.Users.AddAsync(createdUser);
+            await CheckersDbContext.SaveChangesAsync();            
+            //user authorization
+            var claims = new List<Claim> { new Claim(ClaimTypes.Name, createdUser.Name) };
+            ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "Cookies");
+            await context.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
         }
 
         public async Task LogIn(HttpContext context, SignInViewModel model)
         {
             string hashedPassword = ComputeStringToSha256Hash(model.Password);
-            User usr = CheckersDbContext.Users.Where(u => u.Name == model.Name && u.Password == hashedPassword).First();
-            if(usr != null)
+            int usrFromModel = CheckersDbContext.Users.Where(u => u.Name == model.Name && u.Password == hashedPassword).Count();
+            if(usrFromModel == 1)
             {
-                var claims = new List<Claim> { new Claim(ClaimTypes.Name, usr.Name) };
+                var claims = new List<Claim> { new Claim(ClaimTypes.Name, model.Name) };
                 ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims,"Cookies");
                 await context.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
             }
+            else if(usrFromModel == 0)
+            {
+                throw new Exception("User with this login and password not exist in database");
+            }
+            else if(usrFromModel > 1)
+            {
+                throw new Exception("More then 1 user exist in database!");
+            }
         }
 
-        static string ComputeStringToSha256Hash(string plainText)
+        public static string ComputeStringToSha256Hash(string plainText)
         { 
             using (SHA256 sha256Hash = SHA256.Create())
             {

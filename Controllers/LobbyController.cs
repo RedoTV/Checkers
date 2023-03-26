@@ -20,16 +20,30 @@ namespace Checkers.Controllers
         }
 
         [HttpGet]
-        public IActionResult AddLobby()
+        public IActionResult AddLobbyPage()
         {
             return View();
         }
 
         [HttpPost]
+        public IActionResult AddLobbyPage(Lobby lobby)
+        {
+            Lobby lobbyInfo = _lobbyService.AddLobby(lobby.Name, lobby.Password!, _httpContextAccessor.HttpContext!);
+            return View("../Lobby/LobbyWaitingRoom",lobbyInfo);
+        }
+
+        [HttpPost]
         public IActionResult LobbyPage(Lobby lobby)
         {
-            _lobbyService.AddLobby(lobby.Name, lobby.Password, _httpContextAccessor.HttpContext!);
+            _lobbyService.AddLobby(lobby.Name, lobby.Password!, _httpContextAccessor.HttpContext!);
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult ConnectToRoom(string name, string? password)
+        {
+            Lobby lobbyInfo = _lobbyService.ConnectToLobby(name,password, _httpContextAccessor.HttpContext!);
+            return View("../Lobby/LobbyWaitingRoom",lobbyInfo);
         }
     }
 }

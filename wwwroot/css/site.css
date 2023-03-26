@@ -7,16 +7,20 @@
     font-family: Actionj;
 }
 
+.dark-bg{
+    background-color: #212738;
+}
+
 .logo > span{
     text-decoration: none;
-    color: #c7e8ff;
+    color: #D1D646;
     transition: 1s;
     margin-left:5px;
 }
 
 .logo > span:hover{
     transition: 1s;
-    color:  #22a3ff;
+    color:  #A3A725;
 }
 
 .lobby-container{
@@ -27,27 +31,29 @@
 
 h1 > .bi-person-circle{
     margin-right: 10px;
-    color: white;
+    color: #22a3ff;
     transition: 1s;
 }
 
 h1 > .bi-person-circle:hover{
-    color: #22a3ff;
+    color: #1C8EB0;
     transition:1s;
 }
 
 .lobby{
-    background-color: #363636;
+    background-color: #2D364D;
     width: 350px;
     height: 250px;
     text-align: center;
     align-items: center;
     padding-top: 15px;
     transition: 1s;
+    text-decoration: none;
+    color: #91B693;
 }
 
 .lobby:hover{
-    color: #22a3ff;
+    color: #72BDA3;
     transition: 1s;
 }
 
@@ -64,17 +70,27 @@ h1 > .bi-person-circle:hover{
     height: 250px;
     text-decoration: none;
     transition: 1s;
-    background-color: #363636;
+    background-color: #2D364D;
 }
 
 .add-lobby-container:hover{
     transition: 1s;
-    color: rgb(59, 48, 255);
+    color: #1C8EB0;
 }
 
 .submit-button{
     margin-top: 20px;
     margin-bottom: 5px;
+}
+
+.start-button
+{
+    background-color: #b1dfb3;
+}
+
+.start-button:hover
+{
+    background-color: #91B693;
 }
 
 .register-btn{
@@ -95,6 +111,11 @@ h1 > .bi-person-circle:hover{
     }
 }
 
+.waiting-room
+{
+    background-color: #0B3947;
+}
+
 .board{
     margin-left: auto;
     margin-right: auto;
@@ -102,10 +123,10 @@ h1 > .bi-person-circle:hover{
     background-color: rgba(255, 228, 196, 0.072);
 }
 
+
 .chatroom{
-    margin-top: 30px;
-    width: 50%;
+    width: 75%;
     margin-left: auto;
-    margin-right: auto;
     text-align: center;
+    background-color: #457b9d6a;
 }

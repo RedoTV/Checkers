@@ -1,3 +1,4 @@
+using System.Security.Cryptography;
 using Checkers.Data;
 using Checkers.Models;
 using Newtonsoft.Json;
@@ -25,10 +26,14 @@ namespace Checkers.Services
             if(findedLobbyCount > 0) 
                 throw new Exception("lobby with this name already exist");
 
+            string? psw = null;
+            if(password != null)
+                psw = LoginService.ComputeStringToSha256Hash(password);
+            
             Lobby newLobby = new Lobby(){
                 Name = name,
                 FirstPlayerName = context.User.Identity!.Name!,
-                Password = password
+                Password = psw
             }; 
             CheckersDbContext.Lobbies.Add(newLobby);
             CheckersDbContext.SaveChanges();
@@ -44,6 +49,31 @@ namespace Checkers.Services
             else{
                 lobbies.Remove(deletedLobby);
                 return deletedLobby.Name;
+            }
+        }
+
+        public Lobby ConnectToLobby(string name, string? password, HttpContext context)
+        {
+            if(password != null)
+            {
+                string psw = LoginService.ComputeStringToSha256Hash(password);
+                Lobby lobbyForConnect = CheckersDbContext.Lobbies.Where(l => l.Name == name && l.Password == psw).First();
+                if(lobbyForConnect.FirstPlayerName == context.User.Identity!.Name)
+                    throw new Exception("User with this nickname already contains in lobby");
+                
+                lobbyForConnect.SecondPlayerName = context.User.Identity!.Name;
+                CheckersDbContext.SaveChangesAsync();
+                return lobbyForConnect;
+            } 
+            else
+            {
+                Lobby lobbyForConnect = CheckersDbContext.Lobbies.Where(l => l.Name == name).First();
+                if(lobbyForConnect.FirstPlayerName == context.User.Identity!.Name)
+                    throw new Exception("User with this nickname already contains in lobby");
+                
+                lobbyForConnect.SecondPlayerName = context.User.Identity!.Name;
+                CheckersDbContext.SaveChangesAsync();
+                return lobbyForConnect;
             }
         }
     }

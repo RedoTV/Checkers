@@ -6,8 +6,8 @@ namespace Checkers.Hubs
     
     public class LobbyHub : Hub
     {
-        public async Task SynchronizeLobby(){
-            
+        public async Task SynchronizeLobby(int fromRow, int fromColumn, int toRow, int toColumn){
+            await Clients.Caller.SendAsync("Synchonize", fromRow , fromColumn , toRow, toColumn);
         }
         public async Task Send(string message)
         {

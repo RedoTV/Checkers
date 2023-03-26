@@ -28,8 +28,15 @@ namespace Checkers.Controllers
         {
             if(ModelState.IsValid)
             { 
-                await LoginService.Registry(HttpContextAccessor.HttpContext!, model);
-                return Redirect("/");
+                try
+                {
+                    await LoginService.Registry(HttpContextAccessor.HttpContext!, model);
+                }
+                catch
+                {
+                    return Redirect("~/Auth/Register");
+                }
+                return Redirect("~/");
             }
             else return View(model);
         }
