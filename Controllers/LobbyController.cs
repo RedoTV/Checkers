@@ -28,21 +28,29 @@ namespace Checkers.Controllers
         [HttpPost]
         public IActionResult AddLobbyPage(Lobby lobby)
         {
-            Lobby lobbyInfo = _lobbyService.AddLobby(lobby.Name, lobby.Password!, _httpContextAccessor.HttpContext!);
-            return View("../Lobby/LobbyWaitingRoom",lobbyInfo);
+            Lobby lobbyInfo = _lobbyService.AddLobby(lobby.Name, lobby.Password!);
+            return RedirectToAction("ConnectToRoom", lobbyInfo);
         }
 
         [HttpPost]
         public IActionResult LobbyPage(Lobby lobby)
         {
-            _lobbyService.AddLobby(lobby.Name, lobby.Password!, _httpContextAccessor.HttpContext!);
+            _lobbyService.AddLobby(lobby.Name, lobby.Password!);
             return View();
         }
 
         [HttpGet]
-        public IActionResult ConnectToRoom(string name, string? password)
+        public IActionResult ConnectToRoom(Lobby? _lobby, string? nameOfLobby, string? password)
         {
-            Lobby lobbyInfo = _lobbyService.ConnectToLobby(name,password, _httpContextAccessor.HttpContext!);
+            Lobby lobbyInfo = new Lobby();
+            if(_lobby!.Name != null)
+            {
+                lobbyInfo = _lobbyService.ConnectToLobby(_lobby.Name!, password, _httpContextAccessor.HttpContext!);
+            }
+            else if(nameOfLobby != null)
+            {
+                lobbyInfo = _lobbyService.ConnectToLobby(nameOfLobby!, password, _httpContextAccessor.HttpContext!);
+            }
             return View("../Lobby/LobbyWaitingRoom",lobbyInfo);
         }
     }

@@ -11,9 +11,9 @@
         {
             string lobbyInfo = "";
             if(lobby.Password != null)
-                lobbyInfo = $"name={lobby.Name}&password={lobby.Password}";
+                lobbyInfo = $"nameOfLobby={lobby.Name}&password={lobby.Password}";
             else 
-                lobbyInfo = $"name={lobby.Name}";
+                lobbyInfo = $"nameOfLobby={lobby.Name}";
             
             <a href="/lobby/ConnectToRoom?@lobbyInfo" class="lobby border border-3 border-success rounded ">
                 <div class="lobby-center">

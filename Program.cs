@@ -18,7 +18,13 @@ builder.Services.AddHttpContextAccessor();
 
 
 builder.Services.AddControllersWithViews();
-builder.Services.AddSignalR();
+builder.Services.AddSignalR(
+    s => 
+    {
+        s.MaximumReceiveMessageSize = null;
+        s.EnableDetailedErrors = true;
+    }
+);
 	
 //Connect Services
 builder.Services.AddTransient<ILobbyService,LobbyService>();
